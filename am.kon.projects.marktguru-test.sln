@@ -4,6 +4,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{67A73FB3-ECA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "am.kon.projects.marktguru-test", "src\am.kon.projects.marktguru-test\am.kon.projects.marktguru-test.csproj", "{416F3267-DBD6-4B2C-9D3C-854678F5D5DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "am.kon.projects.marktguru-test.api", "src\am.kon.projects.marktguru-test.api\am.kon.projects.marktguru-test.api.csproj", "{01CF8092-7FBC-467A-996E-BD2CD885C885}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "am.kon.projects.marktguru-test.products.api", "src\am.kon.projects.marktguru-test.products.api\am.kon.projects.marktguru-test.products.api.csproj", "{3C624507-FA7F-438A-A017-4BCBD99C60DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,8 +18,18 @@ Global
 		{416F3267-DBD6-4B2C-9D3C-854678F5D5DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{416F3267-DBD6-4B2C-9D3C-854678F5D5DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{416F3267-DBD6-4B2C-9D3C-854678F5D5DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01CF8092-7FBC-467A-996E-BD2CD885C885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01CF8092-7FBC-467A-996E-BD2CD885C885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01CF8092-7FBC-467A-996E-BD2CD885C885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01CF8092-7FBC-467A-996E-BD2CD885C885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C624507-FA7F-438A-A017-4BCBD99C60DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C624507-FA7F-438A-A017-4BCBD99C60DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C624507-FA7F-438A-A017-4BCBD99C60DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C624507-FA7F-438A-A017-4BCBD99C60DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{416F3267-DBD6-4B2C-9D3C-854678F5D5DF} = {67A73FB3-ECA1-4A39-A459-59AAE790820B}
+		{01CF8092-7FBC-467A-996E-BD2CD885C885} = {67A73FB3-ECA1-4A39-A459-59AAE790820B}
+		{3C624507-FA7F-438A-A017-4BCBD99C60DF} = {67A73FB3-ECA1-4A39-A459-59AAE790820B}
 	EndGlobalSection
 EndGlobal
