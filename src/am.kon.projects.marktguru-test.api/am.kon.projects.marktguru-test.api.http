@@ -1,6 +1,0 @@
-@am.kon.projects.marktguru_test.api_HostAddress = http://localhost:5047
-
-GET {{am.kon.projects.marktguru_test.api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
