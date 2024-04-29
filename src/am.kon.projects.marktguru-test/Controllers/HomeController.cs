@@ -4,6 +4,7 @@ using am.kon.projects.marktguru_test.Models;
 
 namespace am.kon.projects.marktguru_test.Controllers;
 
+[ResponseCache(Duration = 20, Location = ResponseCacheLocation.Client)]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
