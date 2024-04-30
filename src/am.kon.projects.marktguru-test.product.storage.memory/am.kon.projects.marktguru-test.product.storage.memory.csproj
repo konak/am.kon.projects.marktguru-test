@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>am.kon.projects.marktguru_test.product.storage.memory</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\am.kon.projects.marktguru-test.product.abstraction\am.kon.projects.marktguru-test.product.abstraction.csproj" />
+    </ItemGroup>
+
+</Project>

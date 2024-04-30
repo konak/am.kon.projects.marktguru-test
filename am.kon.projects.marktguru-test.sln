@@ -8,6 +8,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "am.kon.projects.marktguru-t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "am.kon.projects.marktguru-test.products.api", "src\am.kon.projects.marktguru-test.products.api\am.kon.projects.marktguru-test.products.api.csproj", "{3C624507-FA7F-438A-A017-4BCBD99C60DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "am.kon.projects.marktguru-test.product.common", "src\am.kon.projects.marktguru-test.product.common\am.kon.projects.marktguru-test.product.common.csproj", "{258A2143-20D6-43E1-852D-8A86BD0AFC5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "am.kon.projects.marktguru-test.product.abstraction", "src\am.kon.projects.marktguru-test.product.abstraction\am.kon.projects.marktguru-test.product.abstraction.csproj", "{A6B56BF4-99D0-4BBF-BF2D-3139602647A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "am.kon.projects.marktguru-test.product.storage.memory", "src\am.kon.projects.marktguru-test.product.storage.memory\am.kon.projects.marktguru-test.product.storage.memory.csproj", "{8E05577D-2636-4D4C-A473-C694109063A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "am.kon.projects.marktguru-test.product.storage.mssql", "src\am.kon.projects.marktguru-test.product.storage.mssql\am.kon.projects.marktguru-test.product.storage.mssql.csproj", "{E7B8C580-1F9B-4197-950C-6E5B3F08FC20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "am.kon.projects.marktguru-test.product.business-logic", "src\am.kon.projects.marktguru-test.product.business-logic\am.kon.projects.marktguru-test.product.business-logic.csproj", "{4CED7A84-A4FE-4333-83C0-0ABE0E25FDE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +36,34 @@ Global
 		{3C624507-FA7F-438A-A017-4BCBD99C60DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C624507-FA7F-438A-A017-4BCBD99C60DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C624507-FA7F-438A-A017-4BCBD99C60DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{258A2143-20D6-43E1-852D-8A86BD0AFC5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{258A2143-20D6-43E1-852D-8A86BD0AFC5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{258A2143-20D6-43E1-852D-8A86BD0AFC5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{258A2143-20D6-43E1-852D-8A86BD0AFC5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6B56BF4-99D0-4BBF-BF2D-3139602647A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6B56BF4-99D0-4BBF-BF2D-3139602647A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6B56BF4-99D0-4BBF-BF2D-3139602647A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6B56BF4-99D0-4BBF-BF2D-3139602647A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E05577D-2636-4D4C-A473-C694109063A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E05577D-2636-4D4C-A473-C694109063A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E05577D-2636-4D4C-A473-C694109063A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E05577D-2636-4D4C-A473-C694109063A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7B8C580-1F9B-4197-950C-6E5B3F08FC20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7B8C580-1F9B-4197-950C-6E5B3F08FC20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7B8C580-1F9B-4197-950C-6E5B3F08FC20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7B8C580-1F9B-4197-950C-6E5B3F08FC20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CED7A84-A4FE-4333-83C0-0ABE0E25FDE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CED7A84-A4FE-4333-83C0-0ABE0E25FDE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CED7A84-A4FE-4333-83C0-0ABE0E25FDE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CED7A84-A4FE-4333-83C0-0ABE0E25FDE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{416F3267-DBD6-4B2C-9D3C-854678F5D5DF} = {67A73FB3-ECA1-4A39-A459-59AAE790820B}
+		{258A2143-20D6-43E1-852D-8A86BD0AFC5F} = {67A73FB3-ECA1-4A39-A459-59AAE790820B}
+		{A6B56BF4-99D0-4BBF-BF2D-3139602647A9} = {67A73FB3-ECA1-4A39-A459-59AAE790820B}
+		{8E05577D-2636-4D4C-A473-C694109063A4} = {67A73FB3-ECA1-4A39-A459-59AAE790820B}
+		{E7B8C580-1F9B-4197-950C-6E5B3F08FC20} = {67A73FB3-ECA1-4A39-A459-59AAE790820B}
+		{4CED7A84-A4FE-4333-83C0-0ABE0E25FDE8} = {67A73FB3-ECA1-4A39-A459-59AAE790820B}
 		{01CF8092-7FBC-467A-996E-BD2CD885C885} = {67A73FB3-ECA1-4A39-A459-59AAE790820B}
 		{3C624507-FA7F-438A-A017-4BCBD99C60DF} = {67A73FB3-ECA1-4A39-A459-59AAE790820B}
 	EndGlobalSection
