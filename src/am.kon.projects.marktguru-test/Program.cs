@@ -2,13 +2,22 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using am.kon.projects.marktguru_test.Data;
+using am.kon.projects.marktguru_test.product.abstraction;
+using am.kon.projects.marktguru_test.product.business_logic;
+using am.kon.projects.marktguru_test.product.storage.memory;
+using am.kon.projects.marktguru_test.Workers;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddHostedService<MainWorker>();
 
+// Add services to the container.
+builder.Services.AddSingleton<ProductManagementService>();
+builder.Services.AddSingleton<IProductStorage, ProductMemoryStorage>();
+
+// Init DB
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
                        throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
@@ -16,6 +25,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+// Init Identity
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
