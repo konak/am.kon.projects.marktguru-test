@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using am.kon.projects.marktguru_test.Models;
+using am.kon.projects.marktguru_test.product.business_logic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,16 +17,19 @@ namespace am.kon.projects.marktguru_test.Controllers.Api;
 [Route("api/auth")]
 public class AuthController : ControllerBase
 {
+    private readonly ILogger<AuthController> _logger;
     private readonly IConfiguration _configuration;
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
 
     public AuthController(
+        ILogger<AuthController> logger,
         IConfiguration configuration,
         UserManager<IdentityUser> userManager,
         SignInManager<IdentityUser> signInManager
     )
     {
+        _logger = logger;
         _configuration = configuration;
         _userManager = userManager;
         _signInManager = signInManager;

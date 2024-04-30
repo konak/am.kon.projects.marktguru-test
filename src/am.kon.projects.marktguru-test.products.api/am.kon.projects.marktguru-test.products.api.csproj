@@ -12,4 +12,8 @@
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\am.kon.projects.marktguru-test.product.business-logic\am.kon.projects.marktguru-test.product.business-logic.csproj" />
+    </ItemGroup>
+
 </Project>
