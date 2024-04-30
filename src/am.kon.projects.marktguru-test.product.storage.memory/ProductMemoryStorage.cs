@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using am.kon.projects.marktguru_test.product.abstraction;
 using am.kon.projects.marktguru_test.product.common.Action;
 using am.kon.projects.marktguru_test.product.common.Models;
@@ -12,11 +13,14 @@ namespace am.kon.projects.marktguru_test.product.storage.memory;
 /// </summary>
 public class ProductMemoryStorage : ProductServiceBase, IProductStorage
 {
+    private readonly ConcurrentDictionary<Guid, Product> _storage;
+    
     public ProductMemoryStorage(
         ILogger<ProductMemoryStorage> logger,
         IConfiguration configuration
         ) : base(logger, configuration)
     {
+        _storage = new ConcurrentDictionary<Guid, Product>();
     }
 
     /// <summary>
@@ -27,10 +31,15 @@ public class ProductMemoryStorage : ProductServiceBase, IProductStorage
     {
         ProductActionResult<List<Product>> result = new ProductActionResult<List<Product>>
         {
-            ActionResult = ProductActionResultTypes.Error,
-            Message = "Not Implemented."
+            ActionResult = ProductActionResultTypes.Ok,
+            Data = new List<Product>()
         };
-        
+
+        foreach (Product product in _storage.Values)
+        {
+            result.Data.Add(product);
+        }
+
         return Task.FromResult<ProductActionResult<List<Product>>>(result);
     }
 
