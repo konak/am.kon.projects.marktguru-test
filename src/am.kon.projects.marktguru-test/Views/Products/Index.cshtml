@@ -1,0 +1,49 @@
+@using am.kon.projects.marktguru_test.Models.Products
+@using am.kon.projects.marktguru_test.Controllers.Models
+
+@model ProductsPageBaseModel<IEnumerable<ProductListItemModel>>
+
+@{
+    ViewData["Title"] = "Products List";
+}
+
+<div class="container">
+    <div class="row bg-light">
+        <div class="col col-lg-2">
+            <a class="btn w-100 btn-primary">Create Product</a>
+        </div>
+    </div>
+</div>
+
+<hr/>
+
+@if (Model.HasMessage)
+{
+    <div class="alert alert-info">
+        @Model.Message
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row bg-info">
+            <div class="col text-center text-white">Name</div>
+            <div class="col text-center text-white">Price</div>
+            <div class="col text-center text-white">Available</div>
+            <div class="col text-center text-white">Id</div>
+            <div class="col text-center text-white">Action</div>
+        </div>
+            @foreach (var item in Model.Data)
+            {
+                <div class="row">
+                    <div class="col">@item.Name</div>
+                    <div class="col">@item.Price</div>
+                    <div class="col">@item.Available</div>
+                    <div class="col">@item.Id</div>
+                    <div class="col">
+
+                    </div>
+                </div>
+            }
+    </div>
+}
