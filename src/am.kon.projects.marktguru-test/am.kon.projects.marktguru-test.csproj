@@ -22,6 +22,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\am.kon.projects.marktguru-test.product.business-logic\am.kon.projects.marktguru-test.product.business-logic.csproj" />
+      <ProjectReference Include="..\am.kon.projects.marktguru-test.product.storage.memory\am.kon.projects.marktguru-test.product.storage.memory.csproj" />
       <ProjectReference Include="..\am.kon.projects.marktguru-test.products.api\am.kon.projects.marktguru-test.products.api.csproj" />
     </ItemGroup>
 

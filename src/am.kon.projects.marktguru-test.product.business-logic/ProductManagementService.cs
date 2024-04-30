@@ -1,21 +1,22 @@
 using am.kon.projects.marktguru_test.product.abstraction;
 using am.kon.projects.marktguru_test.product.common.Action;
 using am.kon.projects.marktguru_test.product.common.Models;
+using am.kon.projects.marktguru_test.product.common.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace am.kon.projects.marktguru_test.product.business_logic;
 
-public class ProductManagementService
+public class ProductManagementService : ProductServiceBase
 {
-    private readonly ILogger<ProductManagementService> _logger;
     private readonly IProductStorage _storage;
-    
-    //private readonly IConfiguration _configuration;
 
-    public ProductManagementService(ILogger<ProductManagementService> logger, IProductStorage storage)
+    public ProductManagementService(
+        ILogger<ProductManagementService> logger,
+        IConfiguration configuration,
+        IProductStorage storage
+        ) : base(logger, configuration)
     {
-        _logger = logger;
         _storage = storage;
     }
 
