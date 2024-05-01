@@ -1,6 +1,8 @@
 using am.kon.projects.marktguru_test.product.business_logic;
 using am.kon.projects.marktguru_test.product.common.Action;
 using am.kon.projects.marktguru_test.product.common.Models;
+using am.kon.projects.marktguru_test.products.api.Models;
+using am.kon.projects.marktguru_test.products.api.Models.Adapters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
@@ -54,21 +56,76 @@ public class ProductsController : ControllerBase
                     return StatusCode(500, "unhandled case during getting all products from storage");
             }
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            _logger.LogError(exception: e, message: "Unhandled exception in 'GetProducts'.");
+            _logger.LogError(exception: ex, message: "Unhandled exception in 'GetProducts'.");
             return StatusCode(500, "Unhandled exception in 'GetProducts'.");
         }
     }
     
     /// <summary>
-    /// Endpoint to get an endpoint by provided Id
+    /// Endpoint to get a product by provided Id
     /// </summary>
     /// <param name="id">Id of the product to be retrived from the storage</param>
     /// <returns>An instance of a product</returns>
     [HttpGet("{id}")]
-    public Task<IActionResult> GetProducts(Guid id)
+    public async Task<IActionResult> GetProducts(Guid id)
     {
-        return Task.FromResult<IActionResult>(Ok(new {data = "data for product with id: " + id + " should be here"}));
+        try
+        {
+            ProductActionResult<Product> result = await _productManagementService.GetItem(id);
+
+            switch (result.ActionResult)
+            {
+                case ProductActionResultTypes.Ok:
+                    return Ok(result.Data);
+                
+                case ProductActionResultTypes.Error:
+                case ProductActionResultTypes.Info:
+                    return StatusCode(500, result.Message) ;
+
+                default:
+                    return StatusCode(500, "unhandled case during getting all products from storage");
+            }
+
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(exception: ex, message: "Unhandled exception in 'GetProducts' by provided Id.");
+            return StatusCode(500, "Unhandled exception in 'GetProducts' by provided Id.");
+        }
     }
+    
+    /// <summary>
+    /// Endpoit to create product
+    /// </summary>
+    /// <param name="product">Instance of the <see cref="ProductCreateModel"/> to be created in the storage</param>
+    /// <returns>Instance of the product created in storage.</returns>
+    [HttpPost]
+    public async Task<IActionResult> CreateProducts([FromBody] ProductCreateModel product)
+    {
+        try
+        {
+            ProductActionResult<Product> result = await _productManagementService.Create(product.ToProduct());
+
+            switch (result.ActionResult)
+            {
+                case ProductActionResultTypes.Ok:
+                    return CreatedAtAction(nameof(CreateProducts), result.Data);
+                
+                case ProductActionResultTypes.Error:
+                case ProductActionResultTypes.Info:
+                    return StatusCode(500, result.Message) ;
+
+                default:
+                    return StatusCode(500, "unhandled case during getting all products from storage");
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(exception: ex, message: "Unhandled exception in 'GetProducts' by provided Id.");
+            return StatusCode(500, "Unhandled exception in 'GetProducts' by provided Id.");
+        }
+    }
+
 }

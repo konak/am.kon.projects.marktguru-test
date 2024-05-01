@@ -10,7 +10,7 @@ public class ProductsPageBaseModel<T>
     /// </summary>
     public bool HasMessage
     {
-        get { return string.IsNullOrEmpty(Message); }
+        get { return !string.IsNullOrEmpty(Message); }
     }
     
     /// <summary>
