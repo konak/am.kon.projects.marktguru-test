@@ -41,7 +41,7 @@ else
                     <div class="col">@item.Available</div>
                     <div class="col">@item.Id</div>
                     <div class="col">
-
+                        <a class="btn btn-link" asp-area="" asp-controller="Products" asp-action="ProductDetails" asp-route-id="@item.Id">Details</a>
                     </div>
                 </div>
             }
