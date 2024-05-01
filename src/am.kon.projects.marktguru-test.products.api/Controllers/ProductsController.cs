@@ -159,4 +159,36 @@ public class ProductsController : ControllerBase
             return StatusCode(500, "Unhandled exception in 'EditProducts' by provided Id.");
         }
     }
+    
+    /// <summary>
+    /// Endpoit to delete product from storage
+    /// </summary>
+    /// <param name="id">Id of the product to delete from the storage.</param>
+    /// <returns>Instance of the product deleted from storage.</returns>
+    [HttpDelete]
+    public async Task<IActionResult> DeleteProduct(Guid id)
+    {
+        try
+        {
+            ProductActionResult<Product> result = await _productManagementService.Delete(id);
+
+            switch (result.ActionResult)
+            {
+                case ProductActionResultTypes.Ok:
+                    return Ok(result.Data);
+                
+                case ProductActionResultTypes.Error:
+                case ProductActionResultTypes.Info:
+                    return StatusCode(400, result.Message) ;
+
+                default:
+                    return StatusCode(400, "unhandled case during product delete.");
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(exception: ex, message: "Unhandled exception in 'DeleteProduct' by provided Id.");
+            return StatusCode(500, "Unhandled exception in 'DeleteProduct' by provided Id.");
+        }
+    }
 }
