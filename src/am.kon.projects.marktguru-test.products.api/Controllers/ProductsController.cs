@@ -50,10 +50,10 @@ public class ProductsController : ControllerBase
                 
                 case ProductActionResultTypes.Error:
                 case ProductActionResultTypes.Info:
-                    return StatusCode(500, result.Message) ;
+                    return StatusCode(400, result.Message) ;
 
                 default:
-                    return StatusCode(500, "unhandled case during getting all products from storage");
+                    return StatusCode(400, "unhandled case during getting all products from storage");
             }
         }
         catch (Exception ex)
@@ -82,10 +82,10 @@ public class ProductsController : ControllerBase
                 
                 case ProductActionResultTypes.Error:
                 case ProductActionResultTypes.Info:
-                    return StatusCode(500, result.Message) ;
+                    return StatusCode(400, result.Message) ;
 
                 default:
-                    return StatusCode(500, "unhandled case during getting all products from storage");
+                    return StatusCode(400, "unhandled case during getting all products from storage");
             }
 
         }
@@ -95,7 +95,7 @@ public class ProductsController : ControllerBase
             return StatusCode(500, "Unhandled exception in 'GetProducts' by provided Id.");
         }
     }
-    
+
     /// <summary>
     /// Endpoit to create product
     /// </summary>
@@ -115,17 +115,48 @@ public class ProductsController : ControllerBase
                 
                 case ProductActionResultTypes.Error:
                 case ProductActionResultTypes.Info:
-                    return StatusCode(500, result.Message) ;
+                    return StatusCode(400, result.Message) ;
 
                 default:
-                    return StatusCode(500, "unhandled case during getting all products from storage");
+                    return StatusCode(400, "unhandled case during crete product int the storage");
             }
         }
         catch (Exception ex)
         {
-            _logger.LogError(exception: ex, message: "Unhandled exception in 'GetProducts' by provided Id.");
-            return StatusCode(500, "Unhandled exception in 'GetProducts' by provided Id.");
+            _logger.LogError(exception: ex, message: "Unhandled exception in 'CreateProducts' by provided Id.");
+            return StatusCode(500, "Unhandled exception in 'CreateProducts' by provided Id.");
         }
     }
 
+    /// <summary>
+    /// Endpoit to update product data
+    /// </summary>
+    /// <param name="product">Instance of the <see cref="ProductEditModel"/> to be updated in the storage</param>
+    /// <returns>Instance of the product updated in storage.</returns>
+    [HttpPut]
+    public async Task<IActionResult> EditProducts([FromBody] ProductEditModel product)
+    {
+        try
+        {
+            ProductActionResult<Product> result = await _productManagementService.Update(product.ToProduct());
+
+            switch (result.ActionResult)
+            {
+                case ProductActionResultTypes.Ok:
+                    return Ok(result.Data);
+                
+                case ProductActionResultTypes.Error:
+                case ProductActionResultTypes.Info:
+                    return StatusCode(400, result.Message) ;
+
+                default:
+                    return StatusCode(400, "unhandled case during product edit.");
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(exception: ex, message: "Unhandled exception in 'EditProducts' by provided Id.");
+            return StatusCode(500, "Unhandled exception in 'EditProducts' by provided Id.");
+        }
+    }
 }

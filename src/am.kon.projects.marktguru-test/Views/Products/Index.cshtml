@@ -42,6 +42,8 @@ else
                     <div class="col">@item.Id</div>
                     <div class="col">
                         <a class="btn btn-link" asp-area="" asp-controller="Products" asp-action="ProductDetails" asp-route-id="@item.Id">Details</a>
+                        &nbsp;|&nbsp;
+                        <a class="btn btn-link" asp-area="" asp-controller="Products" asp-action="EditProduct" asp-route-id="@item.Id">Edit</a>
                     </div>
                 </div>
             }
