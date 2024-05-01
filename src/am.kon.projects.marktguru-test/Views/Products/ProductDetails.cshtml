@@ -1,0 +1,75 @@
+@using am.kon.projects.marktguru_test.Models.Products
+
+@model ProductDetailedModel
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container">
+    <div class="row bg-light">
+        <div class="col col-lg-2">
+            <a class="btn" asp-area="" asp-controller="Products" asp-action="Index">Back</a>
+        </div>
+    </div>
+</div>
+
+<hr/>
+<h4>Product Detalils</h4>
+<hr/>
+
+<div asp-validation-summary="All" class="text-danger" role="alert"></div>
+
+@if (Model != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col col-3">
+                <label asp-for="Id"></label>
+            </div>
+            <div class="col col-9">
+                <label class="form-control">@Model.Id</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-3">
+                <label asp-for="Name"></label>
+            </div>
+            <div class="col col-9">
+                <label class="form-control">@Model.Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-3">
+                <label asp-for="Available"></label>
+            </div>
+            <div class="col col-9">
+                <label class="form-control">@Model.Available</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-3">
+                <label asp-for="Price"></label>
+            </div>
+            <div class="col col-9">
+                <label class="form-control">@Model.Price</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-3">
+                <label asp-for="Description"></label>
+            </div>
+            <div class="col col-9">
+                <label class="form-control">@Model.Description</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-3">
+                <label asp-for="DateCreated"></label>
+            </div>
+            <div class="col col-9">
+                <label class="form-control">@Model.DateCreated</label>
+            </div>
+        </div>
+    </div>
+}
