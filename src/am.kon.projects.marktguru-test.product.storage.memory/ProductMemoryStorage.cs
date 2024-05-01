@@ -13,14 +13,16 @@ namespace am.kon.projects.marktguru_test.product.storage.memory;
 /// </summary>
 public class ProductMemoryStorage : ProductServiceBase, IProductStorage
 {
-    private readonly ConcurrentDictionary<Guid, Product> _storage;
+    private readonly ConcurrentDictionary<Guid, Product> _storageById;
+    private readonly ConcurrentDictionary<string, Product> _storageByName;
     
     public ProductMemoryStorage(
         ILogger<ProductMemoryStorage> logger,
         IConfiguration configuration
         ) : base(logger, configuration)
     {
-        _storage = new ConcurrentDictionary<Guid, Product>();
+        _storageById = new ConcurrentDictionary<Guid, Product>();
+        _storageByName = new ConcurrentDictionary<string, Product>();
     }
 
     /// <summary>
@@ -35,7 +37,7 @@ public class ProductMemoryStorage : ProductServiceBase, IProductStorage
             Data = new List<Product>()
         };
 
-        foreach (Product product in _storage.Values)
+        foreach (Product product in _storageById.Values)
         {
             result.Data.Add(product);
         }
@@ -50,11 +52,18 @@ public class ProductMemoryStorage : ProductServiceBase, IProductStorage
     /// <returns>Instance of the product read from the storage</returns>
     public Task<ProductActionResult<Product>> GetItem(Guid id)
     {
-        ProductActionResult<Product> result = new ProductActionResult<Product>
+        ProductActionResult<Product> result = new ProductActionResult<Product>();
+
+        if (_storageById.TryGetValue(id, out Product product))
         {
-            ActionResult = ProductActionResultTypes.Error,
-            Message = "Not Implemented."
-        };
+            result.ActionResult = ProductActionResultTypes.Ok;
+            result.Data = product;
+        }
+        else
+        {
+            result.ActionResult = ProductActionResultTypes.Error;
+            result.Message = $"Product with id: {id} was not found.";
+        }
         
         return Task.FromResult<ProductActionResult<Product>>(result);
     }
@@ -66,11 +75,28 @@ public class ProductMemoryStorage : ProductServiceBase, IProductStorage
     /// <returns>Instance of the already created product.</returns>
     public Task<ProductActionResult<Product>> Create(Product product)
     {
-        ProductActionResult<Product> result = new ProductActionResult<Product>
+        ProductActionResult<Product> result = new ProductActionResult<Product>();
+
+        if (!_storageByName.TryAdd(product.Name, product))
         {
-            ActionResult = ProductActionResultTypes.Error,
-            Message = "Not Implemented."
-        };
+            result.ActionResult = ProductActionResultTypes.Error;
+            result.Message = "Product with the same name exists.";
+
+            return Task.FromResult(result);
+        }
+
+        if (!_storageById.TryAdd(product.Id, product))
+        {
+            _storageByName.TryRemove(product.Name, out _);
+            
+            result.ActionResult = ProductActionResultTypes.Error;
+            result.Message = "Product with the same Id exists.";
+
+            return Task.FromResult(result);
+        }
+        
+        result.ActionResult = ProductActionResultTypes.Ok;
+        result.Data = product;
         
         return Task.FromResult<ProductActionResult<Product>>(result);
     }
@@ -82,12 +108,37 @@ public class ProductMemoryStorage : ProductServiceBase, IProductStorage
     /// <returns>Instance of the already Updated product.</returns>
     public Task<ProductActionResult<Product>> Update(Product product)
     {
-        ProductActionResult<Product> result = new ProductActionResult<Product>
-        {
-            ActionResult = ProductActionResultTypes.Error,
-            Message = "Not Implemented."
-        };
+        ProductActionResult<Product> result = new ProductActionResult<Product>();
 
+        if (_storageById.TryGetValue(product.Id, out Product currentProduct))
+        {
+            if (currentProduct.Name != product.Name)
+            {
+                if (!_storageByName.TryAdd(product.Name, product))
+                {
+                    result.ActionResult = ProductActionResultTypes.Error;
+                    result.Message = "Product with the same name already exists.";
+
+                    return Task.FromResult(result);
+                }
+
+                _storageByName.TryRemove(currentProduct.Name, out _);
+                currentProduct.Name = product.Name;
+            }
+
+            currentProduct.Available = product.Available;
+            currentProduct.Description = product.Description;
+            currentProduct.Price = product.Price;
+
+            result.ActionResult = ProductActionResultTypes.Ok;
+            result.Data = currentProduct;
+        }
+        else
+        {
+            result.ActionResult = ProductActionResultTypes.Error;
+            result.Message = $"Product with id: {product.Id} was not found";
+        }
+        
         return Task.FromResult<ProductActionResult<Product>>(result);
     }
 
@@ -98,13 +149,21 @@ public class ProductMemoryStorage : ProductServiceBase, IProductStorage
     /// <returns>Deleted instance of the product.</returns>
     public Task<ProductActionResult<Product>> Delete(Guid productId)
     {
-        ProductActionResult<Product> result = new ProductActionResult<Product>
+        ProductActionResult<Product> result = new ProductActionResult<Product>();
+
+        if (_storageById.TryRemove(productId, out Product product))
         {
-            ActionResult = ProductActionResultTypes.Error,
-            Message = "Not Implemented."
-        };
+            _storageByName.TryRemove(product.Name, out _);
+
+            result.ActionResult = ProductActionResultTypes.Ok;
+            result.Data = product;
+        }
+        else
+        {
+            result.ActionResult = ProductActionResultTypes.Error;
+            result.Message = $"Product with id: {productId} was not found";
+        }
 
         return Task.FromResult<ProductActionResult<Product>>(result);
     }
-
 }
