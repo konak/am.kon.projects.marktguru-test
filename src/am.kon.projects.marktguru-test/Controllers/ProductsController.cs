@@ -26,6 +26,7 @@ public partial class ProductsController : Controller
         _productManagementService = productManagementService;
     }
     
+    [AllowAnonymous]
     // GET
     public async Task<IActionResult> Index()
     {

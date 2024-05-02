@@ -1,12 +1,14 @@
 using am.kon.projects.marktguru_test.Models.Products.Adapters;
 using am.kon.projects.marktguru_test.product.common.Action;
 using am.kon.projects.marktguru_test.product.common.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace am.kon.projects.marktguru_test.Controllers;
 
 public partial class ProductsController
 {
+    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> ProductDetails(Guid id)
     {
