@@ -34,13 +34,8 @@ public class ProductMemoryStorage : ProductServiceBase, IProductStorage
         ProductActionResult<List<Product>> result = new ProductActionResult<List<Product>>
         {
             ActionResult = ProductActionResultTypes.Ok,
-            Data = new List<Product>()
+            Data = new List<Product>(_storageById.Values)
         };
-
-        foreach (Product product in _storageById.Values)
-        {
-            result.Data.Add(product);
-        }
 
         return Task.FromResult<ProductActionResult<List<Product>>>(result);
     }
