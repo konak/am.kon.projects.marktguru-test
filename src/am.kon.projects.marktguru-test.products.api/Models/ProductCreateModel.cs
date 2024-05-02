@@ -21,6 +21,7 @@ public class ProductCreateModel
     /// Price of the product.
     /// </summary>
     [Required]
+    [Range(0, double.MaxValue, ErrorMessage = "Price must be non-negative.")]
     public decimal Price { get; set; }
     
     /// <summary>
