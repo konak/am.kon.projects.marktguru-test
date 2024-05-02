@@ -21,7 +21,8 @@ public static class ProductEditModelExtensions
             Name = productEditModel.Name,
             Price = productEditModel.Price,
             Available = productEditModel.Available,
-            Description = productEditModel.Description
+            Description = productEditModel.Description,
+            Version = productEditModel.Version
         };
     }
 
@@ -39,7 +40,8 @@ public static class ProductEditModelExtensions
             Name = product.Name,
             Price = product.Price,
             Available = product.Available,
-            Description = product.Description
+            Description = product.Description,
+            Version = product.Version
         };
     }
 }
