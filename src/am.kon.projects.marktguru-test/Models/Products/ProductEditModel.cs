@@ -30,4 +30,8 @@ public class ProductEditModel : ProductBaseModel
     /// </summary>
     public string? Description { get; set; }
 
+    /// <summary>
+    /// Version of last update of the product.
+    /// </summary>
+    public int Version { get; set; }
 }

@@ -22,7 +22,8 @@ public static class ProductDetailedModelExtensions
             Price = product.Price,
             Available = product.Available,
             Description = product.Description,
-            DateCreated = product.DateCreated
+            DateCreated = product.DateCreated,
+            Version = product.Version
         };
     }
 }

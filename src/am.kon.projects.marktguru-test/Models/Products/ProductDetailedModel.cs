@@ -30,4 +30,9 @@ public class ProductDetailedModel : ProductBaseModel
     /// Date the product was created in the system.
     /// </summary>
     public DateTime DateCreated { get; set; }
+
+    /// <summary>
+    /// Version of last update of the product.
+    /// </summary>
+    public int Version { get; set; }
 }

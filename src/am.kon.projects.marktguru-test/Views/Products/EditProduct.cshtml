@@ -48,6 +48,7 @@
                     <label asp-for="Available"></label>
                     <span asp-validation-for="Available" class="text-danger"></span>
                 </div>
+                <input type="hidden" asp-for="Version"/>
                 <button type="submit" class="btn btn-primary">Update</button>
                 <a class="btn btn-lg btn-light" asp-area="" asp-controller="Products" asp-action="Index">Cancel</a>
             </form>        
