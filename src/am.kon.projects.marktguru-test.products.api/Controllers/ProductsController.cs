@@ -63,6 +63,7 @@ public class ProductsController : ControllerBase
         }
     }
     
+    [AllowAnonymous]
     /// <summary>
     /// Endpoint to get a product by provided Id
     /// </summary>
