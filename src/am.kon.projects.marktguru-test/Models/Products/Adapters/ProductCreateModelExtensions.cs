@@ -21,7 +21,8 @@ public static class ProductCreateModelExtensions
             Price = productCreateModel.Price,
             Available = productCreateModel.Available,
             Description = productCreateModel.Description,
-            DateCreated = DateTime.UtcNow
+            DateCreated = DateTime.UtcNow,
+            Version = 0
         };
     }
 }

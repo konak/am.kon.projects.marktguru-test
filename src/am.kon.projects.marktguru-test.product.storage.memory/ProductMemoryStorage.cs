@@ -72,22 +72,25 @@ public class ProductMemoryStorage : ProductServiceBase, IProductStorage
     {
         ProductActionResult<Product> result = new ProductActionResult<Product>();
 
-        if (!_storageByName.TryAdd(product.Name, product))
+        lock (product)
         {
-            result.ActionResult = ProductActionResultTypes.Error;
-            result.Message = "Product with the same name exists.";
+            if (!_storageByName.TryAdd(product.Name, product))
+            {
+                result.ActionResult = ProductActionResultTypes.Error;
+                result.Message = "Product with the same name exists.";
 
-            return Task.FromResult(result);
-        }
+                return Task.FromResult(result);
+            }
 
-        if (!_storageById.TryAdd(product.Id, product))
-        {
-            _storageByName.TryRemove(product.Name, out _);
-            
-            result.ActionResult = ProductActionResultTypes.Error;
-            result.Message = "Product with the same Id exists.";
+            if (!_storageById.TryAdd(product.Id, product))
+            {
+                _storageByName.TryRemove(product.Name, out _);
 
-            return Task.FromResult(result);
+                result.ActionResult = ProductActionResultTypes.Error;
+                result.Message = "Product with the same Id exists.";
+
+                return Task.FromResult(result);
+            }
         }
         
         result.ActionResult = ProductActionResultTypes.Ok;
@@ -107,23 +110,35 @@ public class ProductMemoryStorage : ProductServiceBase, IProductStorage
 
         if (_storageById.TryGetValue(product.Id, out Product currentProduct))
         {
-            if (currentProduct.Name != product.Name)
+            lock (currentProduct)
             {
-                if (!_storageByName.TryAdd(product.Name, product))
+                if (currentProduct.Version != product.Version)
                 {
-                    result.ActionResult = ProductActionResultTypes.Error;
-                    result.Message = "Product with the same name already exists.";
+                    result.ActionResult = ProductActionResultTypes.Info;
+                    result.Message = "Product was modified in other session.";
 
                     return Task.FromResult(result);
                 }
 
-                _storageByName.TryRemove(currentProduct.Name, out _);
-                currentProduct.Name = product.Name;
-            }
+                if (currentProduct.Name != product.Name)
+                {
+                    if (!_storageByName.TryAdd(product.Name, product))
+                    {
+                        result.ActionResult = ProductActionResultTypes.Error;
+                        result.Message = "Product with the same name already exists.";
 
-            currentProduct.Available = product.Available;
-            currentProduct.Description = product.Description;
-            currentProduct.Price = product.Price;
+                        return Task.FromResult(result);
+                    }
+
+                    _storageByName.TryRemove(currentProduct.Name, out _);
+                    currentProduct.Name = product.Name;
+                }
+
+                currentProduct.Available = product.Available;
+                currentProduct.Description = product.Description;
+                currentProduct.Price = product.Price;
+                currentProduct.Version++;
+            }
 
             result.ActionResult = ProductActionResultTypes.Ok;
             result.Data = currentProduct;
@@ -148,7 +163,10 @@ public class ProductMemoryStorage : ProductServiceBase, IProductStorage
 
         if (_storageById.TryRemove(productId, out Product product))
         {
-            _storageByName.TryRemove(product.Name, out _);
+            lock (product)
+            {
+                _storageByName.TryRemove(product.Name, out _);
+            }
 
             result.ActionResult = ProductActionResultTypes.Ok;
             result.Data = product;
