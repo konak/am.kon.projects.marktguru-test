@@ -63,6 +63,7 @@ public class ProductsController : ControllerBase
         }
     }
     
+    [AllowAnonymous]
     /// <summary>
     /// Endpoint to get a product by provided Id
     /// </summary>
@@ -102,7 +103,7 @@ public class ProductsController : ControllerBase
     /// <param name="product">Instance of the <see cref="ProductCreateModel"/> to be created in the storage</param>
     /// <returns>Instance of the product created in storage.</returns>
     [HttpPost]
-    public async Task<IActionResult> CreateProducts([FromBody] ProductCreateModel product)
+    public async Task<IActionResult> Create([FromBody] ProductCreateModel product)
     {
         try
         {
@@ -111,7 +112,7 @@ public class ProductsController : ControllerBase
             switch (result.ActionResult)
             {
                 case ProductActionResultTypes.Ok:
-                    return CreatedAtAction(nameof(CreateProducts), result.Data);
+                    return Ok(result.Data);
                 
                 case ProductActionResultTypes.Error:
                 case ProductActionResultTypes.Info:
@@ -134,7 +135,7 @@ public class ProductsController : ControllerBase
     /// <param name="product">Instance of the <see cref="ProductEditModel"/> to be updated in the storage</param>
     /// <returns>Instance of the product updated in storage.</returns>
     [HttpPut]
-    public async Task<IActionResult> EditProducts([FromBody] ProductEditModel product)
+    public async Task<IActionResult> Update([FromBody] ProductEditModel product)
     {
         try
         {
@@ -166,7 +167,7 @@ public class ProductsController : ControllerBase
     /// <param name="id">Id of the product to delete from the storage.</param>
     /// <returns>Instance of the product deleted from storage.</returns>
     [HttpDelete]
-    public async Task<IActionResult> DeleteProduct(Guid id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         try
         {
