@@ -49,7 +49,7 @@ public partial class ProductsController : Controller
                     break;
                 
                 default:
-                    pageModel.Message = "unhandled case during getting getting all products from storage";
+                    pageModel.Message = "Unhandled case during getting all products from storage";
                     break;
             }
         }

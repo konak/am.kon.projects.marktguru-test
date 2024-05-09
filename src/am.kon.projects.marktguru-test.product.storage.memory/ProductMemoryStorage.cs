@@ -120,6 +120,14 @@ public class ProductMemoryStorage : ProductServiceBase, IProductStorage
                     return Task.FromResult(result);
                 }
 
+                if (!_storageById.TryGetValue(product.Id, out _))
+                {
+                    result.ActionResult = ProductActionResultTypes.Error;
+                    result.Message = "Product was removed from storage.";
+
+                    return Task.FromResult(result);
+                }
+
                 if (currentProduct.Name != product.Name)
                 {
                     if (!_storageByName.TryAdd(product.Name, product))
